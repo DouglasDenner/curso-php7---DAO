@@ -1,9 +1,9 @@
 <?php
 require_once("config.php");
 
- $sql = new sql();
+$root =new usuario();
 
- $usuario= $sql->select("SELECT * FROM bd_usuario");
-echo json_encode($usuario);
 
+$root->loadbyId(2);
+echo $root;
 ?>
