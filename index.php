@@ -1,9 +1,19 @@
 <?php
 require_once("config.php");
 
-$root =new usuario();
+//$root =new Usuario();
+//$root->loadbyId(2);
+//echo $root;
+
+//$lista =Usuario::getList();
+
+	//echo json_encode($lista);
 
 
-$root->loadbyId(2);
-echo $root;
+//$search=Usuario::search("jo");
+//echo json_encode($search);
+
+$usuario = new Usuario();
+$usuario->login("root","!@#$");
+echo json_encode($usuario);
 ?>

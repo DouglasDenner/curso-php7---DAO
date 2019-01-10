@@ -39,7 +39,7 @@ class Usuario  {
 	}
 	public function loadById($id){
 		$sql = new sql();
-		$results = $sql->select("SELECT * FROM tb_usuario WHERE idusuario = :ID", array(
+		$results = $sql->select("SELECT * FROM bd_usuario WHERE idusuario = :ID", array(
             ":ID"=>$id
 		));
 		if(count($results)>0){
@@ -51,6 +51,16 @@ class Usuario  {
 			$this->setdessenha($row['dessenha']);
 			$this->setdtcadastro(new datetime($row['dtcadastro']));
 		}
+	}
+	public static function getList(){
+		$sql = new sql();
+		return $sql->select("SELECT * FROM bd_usuario ORDER BY deslogin;");
+	}
+	public static function search($login){
+		$sql = new sql();
+		return $sql->select("SELECT * FROM bd_usuario WHERE deslogin LIKE :search ORDER BY deslogin", array(
+			':search'=>"%".$login."%"
+		));
 	}
 	public function __toString(){
 		return json_encode(array(
