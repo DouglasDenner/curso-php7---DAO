@@ -93,6 +93,32 @@ class Usuario  {
 		$this->setdeslogin($login);
 		$this->setdessenha($password);
 	}
+
+	public function update($login, $password){
+       $this->setdeslogin($login);
+       $this->setdessenha($password);
+
+        $sql = new sql();
+        $sql->query("UPDATE bd_usuario SET deslogin = :login, dessenha :password WHERE idusuario :ID", array(
+
+        	':login'=>$this->getdeslogin(),
+        	':password'=>$this ->getdessenha(),
+        	':ID'=>$this-> getIdusuario()
+        ));
+
+	}
+
+    public function delete(){
+    	$sql = new sql();
+    	$sql->query("DELETE FROM bd_usuario WHERE idusuario = :ID", array(':ID'=>$this->getIdusuario()
+    ));
+
+    	$this->setIdusuario(0);
+    	$this->setdeslogin("");
+    	$this->setdessenha("");
+    	$this->setdtcadastro(new datetime());
+    }
+
 	public function __toString(){
 		return json_encode(array(
    			"idusuario"=>$this->getIdusuario(),

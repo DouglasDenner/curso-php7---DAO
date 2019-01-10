@@ -16,11 +16,19 @@ require_once("config.php");
 //$usuario = new Usuario();
 //$usuario->login("root","!@#$");
 //echo json_encode($usuario);
-$aluno = new Usuario();
+//$aluno = new Usuario("aluno","4545");
+//$aluno->insert();
+//echo $aluno;
+//);$usuario =new Usuario();
+//$usuario ->loadbyId(10
+//$usuario ->update("professor","123654");
+//echo $usuario;
 
-$aluno->setdeslogin("aluno");
-$aluno->setdessenha("555444");
-$aluno->insert();
-echo $aluno;
+
+$usuario =new Usuario();
+$usuario ->loadbyId(10);
+$usuario ->delete();
+echo $usuario;
+
 
 ?>
