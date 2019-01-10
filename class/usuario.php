@@ -43,13 +43,9 @@ class Usuario  {
             ":ID"=>$id
 		));
 		if(count($results)>0){
-			$row = $results[0];
+			
+             $this ->setdata($results[0]);
 
-
-			$this->setIdusuario($row['idusuario']);
-			$this->setdeslogin($row['deslogin']);
-			$this->setdessenha($row['dessenha']);
-			$this->setdtcadastro(new datetime($row['dtcadastro']));
 		}
 	}
 	public static function getList(){
@@ -61,6 +57,41 @@ class Usuario  {
 		return $sql->select("SELECT * FROM bd_usuario WHERE deslogin LIKE :search ORDER BY deslogin", array(
 			':search'=>"%".$login."%"
 		));
+	}
+	public function login($login, $password){
+		$sql = new sql();
+		$results = $sql->select("SELECT * FROM bd_usuario WHERE deslogin = :login AND dessenha = :password", array(
+            ":login"=>$login,
+            ":password"=>$password
+		));
+		if(count($results)>0){
+			
+         $this ->setdata($results[0]);
+           
+	} else {
+		throw new exception("login e/ou senha invalido");
+	}
+}
+	public function setdata($data){
+	    $this->setIdusuario($data['idusuario']);
+		$this->setdeslogin($data['deslogin']);
+		$this->setdessenha($data['dessenha']);
+		$this->setdtcadastro(new datetime($data['dtcadastro']));
+	}
+
+	public function insert(){
+		$sql = new sql();
+		$results= $sql->select("CALL sp_usuario_insert(:login, :password)", array(
+         ':login'=>$this->getdeslogin(),
+         'password'=>$this->getdessenha()
+		));
+		if (count($results)>0){
+            $this ->setdata($results[0]);
+		}
+	}
+	public function __construct($login = "", $password = ""){
+		$this->setdeslogin($login);
+		$this->setdessenha($password);
 	}
 	public function __toString(){
 		return json_encode(array(

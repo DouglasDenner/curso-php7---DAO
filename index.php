@@ -13,7 +13,14 @@ require_once("config.php");
 //$search=Usuario::search("jo");
 //echo json_encode($search);
 
-$usuario = new Usuario();
-$usuario->login("root","!@#$");
-echo json_encode($usuario);
+//$usuario = new Usuario();
+//$usuario->login("root","!@#$");
+//echo json_encode($usuario);
+$aluno = new Usuario();
+
+$aluno->setdeslogin("aluno");
+$aluno->setdessenha("555444");
+$aluno->insert();
+echo $aluno;
+
 ?>
